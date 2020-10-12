@@ -7,7 +7,9 @@ export const getStaticPaths = () => {
  }
 }
 
-export const getStaticProps = () => {
+export const getStaticProps = ({ params }) => {
+  console.log({params})
+
   return {
     props: {},
     revalidate: 1
