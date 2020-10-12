@@ -1,31 +1,27 @@
 import { useRouter } from 'next/router'
 
-export const getStaticPaths = () => {
- return {
-   paths: [],
-   fallback: true
- }
-}
-
-export const getStaticProps = ({ params }) => {
-  console.log({params})
+export const getServerSideProps = ({ params, query }) => {
+  console.log({params, query})
 
   return {
-    props: {},
-    revalidate: 1
+    props: {
+      serverSideParams: params,
+      serverSideQuery: query
+    },
   }
 }
 
 
-export default function Home() {
+export default function Home({serverSideParams, serverSideQuery}) {
   const router = useRouter()
 
-  const { pathname, query } = router
+  const { query, params } = router
 
   return(
   <div>
     <pre>
-      {JSON.stringify({ pathname, query }, undefined, 2)}
+      {JSON.stringify({ query, params }, undefined, 2)}
+      {JSON.stringify({ serverSideQuery, serverSideParams }, undefined, 2)}
     </pre>
   </div>
   )
